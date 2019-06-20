@@ -1,7 +1,7 @@
 FROM tahitiwebdesign/centos7-without-systemd
 LABEL maintainer="paraita@tahitiwebdesign.com"
 
-ENV ODOO_RPM_URL http://cdn.tahiti-web-management.com/odoo_8.0.20171001.noarch.rpm
+ENV ODOO_RPM_URL https://nightly.odoo.com/8.0/nightly/rpm/odoo_8.0.20171001.noarch.rpm
 ENV ODOO_CFG /etc/odoo/openerp-server.conf
 
 # Installation de la locale FR
