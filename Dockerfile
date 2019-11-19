@@ -17,6 +17,9 @@ RUN yum -y swap -- remove fakesystemd -- install systemd systemd-libs && \
 
 COPY ./entrypoint.sh /
 
+# Installation de xlwt pour python et les rapport excel
+RUN pip install xlwt
+
 # Installation de odoo
 # et creation du repertoire des addons metier
 RUN curl -o odoo.rpm $ODOO_RPM_URL && yum -y install odoo.rpm && \
