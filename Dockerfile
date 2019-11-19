@@ -41,5 +41,4 @@ CMD curl -f http://localhost:8069 || exit 1
 USER odoo
 
 ENTRYPOINT ["/entrypoint.sh"]
-
-CMD ["openerp-server", "-c", "/etc/odoo/openerp-server.conf"]
+CMD ["openerp-server"]
