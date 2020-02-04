@@ -13,7 +13,7 @@ RUN yum -y swap -- remove fakesystemd -- install systemd systemd-libs && \
 	yum clean all && yum -y update && yum -y install epel-release && \
 	yum -y update && yum -y install python-gevent tree less vim \
 	python-pip python-devel git libjpeg-devel libtiff-devel gcc \
-	libxslt-devel libxml2-devel graphviz openldap-devel;
+	libxslt-devel libxml2-devel graphviz openldap-devel postgresql;
 
 COPY ./entrypoint.sh /
 
