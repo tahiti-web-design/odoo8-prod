@@ -18,7 +18,8 @@ RUN yum -y swap -- remove fakesystemd -- install systemd systemd-libs && \
 COPY ./entrypoint.sh /
 
 # Installation de xlwt pour python et les rapport excel
-RUN pip install xlwt
+# trello est utilisé par TWD_task
+RUN pip install xlwt trello
 
 # Installation de odoo
 # et creation du repertoire des addons metier
