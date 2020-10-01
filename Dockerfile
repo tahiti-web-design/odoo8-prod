@@ -10,16 +10,24 @@ RUN localedef -i fr_FR -f UTF-8 fr_FR.UTF-8;
 
 # Installation des dependances centos et odoo
 RUN yum -y swap -- remove fakesystemd -- install systemd systemd-libs && \
-	yum clean all && yum -y update && yum -y install epel-release && \
-	yum -y update && yum -y install python-gevent tree less vim \
-	python-pip python-devel git libjpeg-devel libtiff-devel gcc \
+	yum clean all && yum -y update --disableplugin=fastestmirror && \
+        yum -y install --disableplugin=fastestmirror epel-release && \
+	yum -y update --disableplugin=fastestmirror && \
+        yum -y install --disableplugin=fastestmirror \
+        python-pip python-gevent tree less vim \
+	python-devel git libjpeg-devel libtiff-devel gcc \
 	libxslt-devel libxml2-devel graphviz openldap-devel postgresql;
 
 COPY ./entrypoint.sh /
 
 # Installation de xlwt pour python et les rapport excel
 # trello est utilisé par TWD_task
-RUN pip install xlwt trello
+RUN pip install xlwt trello pyparsing==2.1.4
+
+# Pour fix le probleme d'install de package urllib3
+# https://bugzilla.redhat.com/show_bug.cgi?id=1738348
+RUN rm -rf /usr/lib/python2.7/site-packages/urllib3*
+
 
 # Installation de odoo
 # et creation du repertoire des addons metier
