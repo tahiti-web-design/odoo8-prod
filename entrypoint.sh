@@ -12,21 +12,22 @@ set -e
 
 DB_ARGS=()
 function check_config() {
-    param="$1"
-    value="$2"
-    if ! grep  -q -E "^\s*\b${param}\b\s*=" $ODOO_CFG ; then
-        echo "ENTRYPOINT: $param not found in config file, add $param=$value"
-        DB_ARGS+=("--${param}")
+    param_config="$1"
+    param_cmdline="$2"
+    value="$3"
+    if ! grep  -q -E "^\s*\b${param_config}\b\s*=" $ODOO_CFG ; then
+        echo "ENTRYPOINT: \"$param_config\" not found in config file, add \"$param_cmdline $value\" in command line"
+        DB_ARGS+=("${param_cmdline}")
         DB_ARGS+=("${value}")
     else
-        echo "ENTRYPOINT: $param defined in config file"
+        echo "ENTRYPOINT: \"$param_config\" defined in config file"
     fi;
 }
-check_config "db_host" "$HOST"
-check_config "db_port" "$PORT"
-check_config "db_name" "$NAME"
-check_config "db_user" "$USER"
-check_config "db_password" "$PASSWORD"
+check_config "db_host" "--db_host" "$HOST"
+check_config "db_port" "--db_port" "$PORT"
+check_config "db_name" "--database" "$NAME"
+check_config "db_user" "--db_user" "$USER"
+check_config "db_password" "--db_password" "$PASSWORD"
 
 case "$1" in
     -- | openerp-server)
