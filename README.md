@@ -1,29 +1,42 @@
 # Odoo8-prod
 
 Environnement Odoo 8 à base de [Centos 7](https://hub.docker.com/r/tahitiwebdesign/centos7-without-systemd).
+
+## Variables d'environnement
+
 Les variables d'environnement suivantes sont nécessaires pour lancer correctement un container:
 
-* `DB_HOST` pour l'adresse de l'hôte de la BDD
-* `DB_PORT` pour le port vers la BDD
-* `DB_NAME` pour le nom de la BDD
-* `DB_USER` pour le nom d'utilisateur pour accéder à la BDD
-* `DB_PASSWORD` pour le mot de passe de l'utilisateur pour accéder à la BDD
+* `DB_HOST`: hôte de la base de données
+* `DB_PORT`: port de la base de données
+* `DB_NAME`: nom de la base de données
+* `DB_USER`: utilisateur de la base de données
+* `DB_PASSWORD`: mot de passe de la base de données
+
+**@deprecated** (kept for backward compatibility)
+
+* `DB_ADDR` pour l'adresse de l'hôte de la BDD
+
+## Fichier de configuration
 
 Cette image s'attend à trouver le fichier suivant:
 
-```
+```txt
 /etc/odoo/openerp-server.conf
 ```
 
+## Configuration par défaut
+
 Par défaut, l'image va tenter de se connecter à la BDD suivante:
 
+```txt
+hôte de la BDD:         db
+port de la BDD:         5432
+nom de la BDD:          odoo
+utilisateur de la BDD:  odoo
+mot de passe de la BDD: odoo
 ```
-hôte: db
-port: 5432
-nom de database: odoo
-nom d'utilisateur: odoo
-mot de passe utilisateur: odoo
-```
+
+## Volumes
 
 Il est possible de monter les volumes suivants:
 
@@ -32,13 +45,11 @@ Il est possible de monter les volumes suivants:
 * `/var/log/odoo` pour le fichier de log odoo-server.log 
 * `/mnt/extra-addons` pour les modules métier et leurs dépendances
 
-Exemple d'utilisation:
+## Exemple d'utilisation
 
-```
+```bash
 docker run -d -p 80:8069 -p 8072:8072 -v /odoo/config:/etc/odoo \
            -v /odoo/log:/var/log/odoo -v /odoo/addons:/mnt/extra-addons \
-		   -e DB_HOST=localhost -e DB_PORT=5432 -e DB_USER=odoo \
-		   -e DB_PASSWORD=odoo tahitiwebdesign/odoo8-prod
+           -e DB_HOST=localhost -e DB_PORT=5432 -e DB_NAME=odoo \
+           -e DB_USER=odoo -e DB_PASSWORD=odoo tahitiwebdesign/odoo8-prod
 ```
-
-
