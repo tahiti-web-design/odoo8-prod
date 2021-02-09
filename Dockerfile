@@ -18,8 +18,6 @@ RUN yum -y swap -- remove fakesystemd -- install systemd systemd-libs && \
 	python-devel git libjpeg-devel libtiff-devel gcc \
 	libxslt-devel libxml2-devel graphviz openldap-devel postgresql;
 
-COPY ./entrypoint.sh /
-
 # Installation de xlwt pour python et les rapport excel
 # trello est utilisé par TWD_task
 RUN pip install xlwt trello pyparsing==2.1.4
@@ -39,6 +37,8 @@ RUN curl -o odoo.rpm $ODOO_RPM_URL && yum -y install odoo.rpm && \
 RUN curl -Lo wkhtmltox.rpm $WKHTMLTOX_URL && \
 	yum -y localinstall wkhtmltox.rpm && \
 	ln -s /usr/local/bin/wkhtmltopdf /usr/bin/wkhtmltopdf;
+
+COPY ./entrypoint.sh /
 
 EXPOSE 8069 8071
 
