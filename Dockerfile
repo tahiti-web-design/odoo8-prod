@@ -38,9 +38,12 @@ RUN curl -Lo wkhtmltox.rpm $WKHTMLTOX_URL && \
 	yum -y localinstall wkhtmltox.rpm && \
 	ln -s /usr/local/bin/wkhtmltopdf /usr/bin/wkhtmltopdf;
 
+# Install debuggers for VSCode & PyCharm
+RUN pip install debugpy pydevd
+
 COPY ./entrypoint.sh /
 
-EXPOSE 8069 8071
+EXPOSE 8069 8071 3001
 
 VOLUME ["/etc/odoo", "/var/lib/odoo", "/var/log/odoo/", "/mnt/extra-addons"]
 
@@ -51,4 +54,4 @@ USER odoo
 
 ENTRYPOINT ["/entrypoint.sh"]
 
-CMD ["openerp-server", "-c", "/etc/odoo/openerp-server.conf"]
+CMD ["openerp-server"]
