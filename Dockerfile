@@ -47,8 +47,8 @@ EXPOSE 8069 8071 3001
 
 VOLUME ["/etc/odoo", "/var/lib/odoo", "/var/log/odoo/", "/mnt/extra-addons"]
 
-HEALTHCHECK --interval=1m --timeout=30s \
-CMD curl -f http://localhost:8069 || exit 1
+HEALTHCHECK --interval=15s --timeout=10s \
+	CMD curl -f http://localhost:8069 || exit 1
 
 USER odoo
 
