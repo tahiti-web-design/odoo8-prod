@@ -50,8 +50,19 @@ VOLUME ["/etc/odoo", "/var/lib/odoo", "/var/log/odoo/", "/mnt/extra-addons"]
 HEALTHCHECK --interval=15s --timeout=10s \
 	CMD curl -f http://localhost:8069 || exit 1
 
+# Create odoo user
+RUN mkhomedir_helper odoo
 USER odoo
+WORKDIR /home/odoo
+RUN mkdir -p /home/odoo/openerp/addons
 
+# Install poetry
+ENV POETRY_VERSION=1.1.5
+RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python - && \
+	source $HOME/.poetry/env && \
+	poetry config virtualenvs.create false
+#	poetry env use /home/odoo/openerp/addons
+
+# Startup
 ENTRYPOINT ["/entrypoint.sh"]
-
 CMD ["openerp-server"]
