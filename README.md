@@ -11,8 +11,6 @@ Les variables d'environnement suivantes sont nécessaires pour lancer correcteme
 * `DB_NAME`: nom de la base de données
 * `DB_USER`: utilisateur de la base de données
 * `DB_PASSWORD`: mot de passe de la base de données
-* `DEBUG_MODE`: `debugpy` pour debug sous VSCode, `pydevd` sous Pycharm ou `none` sinon
-* `PYDEV_DEBUG_SERVER`: uri du serveur de debug Pydev (la machine sur laquelle tourne Pycharm)
 
 **@deprecated** (kept for backward compatibility)
 
