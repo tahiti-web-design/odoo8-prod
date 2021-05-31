@@ -1,6 +1,24 @@
 #!/bin/bash
 set -e
 
+# Fonctions
+##########################################
+function check_config() {
+    param_config="$1"
+    param_cmdline="$2"
+    value="$3"
+    if ! grep  -q -E "^\s*\b${param_config}\b\s*=" $ODOO_CFG ; then
+        echo "ENTRYPOINT: \"$param_config\" not found in config file, add \"$param_cmdline $value\" in command line"
+        DB_ARGS+=("${param_cmdline}")
+        DB_ARGS+=("${value}")
+    else
+        echo "ENTRYPOINT: \"$param_config\" defined in config file"
+    fi;
+}
+
+
+# Main
+##########################################
 # set the postgres database host, port, user and password according to the environment
 # and pass them as arguments to the odoo process if not present in the config file
 : ${HOST:=${DB_HOST:=${DB_ADDR:='db'}}}
@@ -21,18 +39,3 @@ COMMAND="/usr/bin/openerp-server -c $ODOO_CFG $@ ${DB_ARGS[@]}"
 echo "ENTRYPOINT: exec $DEBUG_CMD $COMMAND"
 exec $DEBUG_CMD $COMMAND
 exit 0
-
-
-# Fonctions
-function check_config() {
-    param_config="$1"
-    param_cmdline="$2"
-    value="$3"
-    if ! grep  -q -E "^\s*\b${param_config}\b\s*=" $ODOO_CFG ; then
-        echo "ENTRYPOINT: \"$param_config\" not found in config file, add \"$param_cmdline $value\" in command line"
-        DB_ARGS+=("${param_cmdline}")
-        DB_ARGS+=("${value}")
-    else
-        echo "ENTRYPOINT: \"$param_config\" defined in config file"
-    fi;
-}
