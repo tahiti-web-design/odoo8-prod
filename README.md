@@ -43,7 +43,7 @@ Il est possible de monter les volumes suivants:
 * `/etc/odoo` pour le fichier de config openerp-server.conf
 * `/var/lib/odoo` pour le filestore Odoo
 * `/var/log/odoo` pour le fichier de log odoo-server.log 
-* `/mnt/extra-addons` pour les modules métier et leurs dépendances
+* `/mnt/extra-addons` pour les modules métier
 
 ## Exemple d'utilisation
 
