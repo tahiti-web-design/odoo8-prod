@@ -1,4 +1,4 @@
-FROM tahitiwebdesign/odoo8-base
+FROM tahitiwebdesign/odoo8-base:release-1.1.0
 LABEL maintainer="dev@tahitiwebdesign.com"
 
 COPY ./entrypoint.sh /
