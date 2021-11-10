@@ -12,5 +12,9 @@ RUN	source $HOME/.poetry/env && \
 # Startup
 COPY ./entrypoint.sh /
 
+RUN mkdir -p /mnt/extra-addons && \
+    mkdir -p /mnt/project-addons 
+COPY ./config/openerp-server.conf /etc/odoo
+
 USER odoo
 ENTRYPOINT ["/entrypoint.sh"]
