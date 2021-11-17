@@ -37,8 +37,15 @@ if [[ -v ADDONS_PATHS ]]; then
     check_config "addons_path" "--addons-path" "$ADDONS_PATHS"
 fi
 
-COMMAND="/usr/bin/openerp-server -c $ODOO_CFG $@ ${DB_ARGS[@]}"
+case "$1" in
+    -- | openerp-server)
+        shift
+        COMMAND="/usr/bin/openerp-server -c $ODOO_CFG $@ ${DB_ARGS[@]}"
+        ;;
+    *)
+        COMMAND="$@"
+esac
 
-echo "ENTRYPOINT: exec $DEBUG_CMD $COMMAND"
-exec $DEBUG_CMD $COMMAND
+echo "ENTRYPOINT: exec $COMMAND"
+exec $COMMAND
 exit 0

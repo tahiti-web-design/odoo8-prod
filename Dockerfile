@@ -18,3 +18,4 @@ COPY ./config/openerp-server.conf /etc/odoo
 
 USER odoo
 ENTRYPOINT ["/entrypoint.sh"]
+CMD ["openerp-server"]
